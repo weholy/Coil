@@ -5,6 +5,7 @@ struct FeedView: View {
     @State private var posts: [Post] = []
     @State private var unreadNotifications = 0
     @State private var selectedPost: Post?
+    @State private var selectedStoryGroup: StoryGroup?
 
     var body: some View {
         NavigationStack {
@@ -12,7 +13,7 @@ struct FeedView: View {
                 VStack(spacing: 18) {
                     FeedHeaderView(unreadNotifications: unreadNotifications, onSearchTap: {}, onNotificationsTap: {})
 
-                    StoryTrayView(stories: stories, me: CurrentUser.placeholder)
+                    StoryTrayView(stories: stories, me: CurrentUser.placeholder, onSelect: { selectedStoryGroup = $0 })
 
                     if posts.isEmpty {
                         EmptyStateView(
@@ -43,6 +44,9 @@ struct FeedView: View {
             .navigationDestination(item: $selectedPost) { post in
                 PostDetailView(post: post)
             }
+        }
+        .fullScreenCover(item: $selectedStoryGroup) { group in
+            StoryViewerView(group: group)
         }
     }
 }

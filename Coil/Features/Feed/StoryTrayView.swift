@@ -43,6 +43,7 @@ struct StoryTrayView: View {
     let stories: [StoryGroup]
     let me: User
     var onAddStory: () -> Void = {}
+    var onSelect: (StoryGroup) -> Void = { _ in }
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -66,14 +67,19 @@ struct StoryTrayView: View {
                 .buttonStyle(.plain)
 
                 ForEach(stories) { group in
-                    VStack(spacing: 6) {
-                        StoryRingView(group: group)
-                        Text(group.authors[0].displayName.components(separatedBy: " ").first ?? "")
-                            .font(Typography.footnote)
-                            .foregroundStyle(Palette.textSecondary)
-                            .lineLimit(1)
-                            .frame(width: Metrics.storyRingSize)
+                    Button {
+                        onSelect(group)
+                    } label: {
+                        VStack(spacing: 6) {
+                            StoryRingView(group: group)
+                            Text(group.authors[0].displayName.components(separatedBy: " ").first ?? "")
+                                .font(Typography.footnote)
+                                .foregroundStyle(Palette.textSecondary)
+                                .lineLimit(1)
+                                .frame(width: Metrics.storyRingSize)
+                        }
                     }
+                    .buttonStyle(.plain)
                 }
             }
             .padding(.horizontal, Metrics.screenPadding)
