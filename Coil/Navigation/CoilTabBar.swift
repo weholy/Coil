@@ -5,47 +5,46 @@ struct CoilTabBar: View {
     let onCompose: () -> Void
 
     var body: some View {
-        HStack(spacing: 0) {
-            tabButton(.feed, icon: "house.fill")
+        HStack(spacing: 14) {
+            iconButton(.feed, icon: "house.fill")
 
             Spacer()
 
-            Button { tab = .chats } label: {
-                HStack(spacing: 6) {
-                    Image(systemName: "bubble.left.fill")
-                        .font(.system(size: 17, weight: .semibold))
+            HStack(spacing: 8) {
+                Button { tab = .chats } label: {
                     Text("Chat")
                         .font(Typography.subheadline)
+                        .foregroundStyle(tab == .chats ? Palette.textPrimary : Palette.textSecondary)
+                        .padding(.horizontal, 18)
+                        .frame(height: 48)
                 }
-                .foregroundStyle(tab == .chats ? Palette.textPrimary : Palette.textSecondary)
-            }
-            .buttonStyle(.plain)
+                .buttonStyle(.plain)
+                .glassCapsule(interactive: true)
 
-            Button(action: onCompose) {
-                Image(systemName: "plus")
-                    .font(.system(size: 14, weight: .bold))
-                    .foregroundStyle(.white)
-                    .frame(width: 30, height: 30)
-                    .background(Palette.accent, in: Circle())
+                Button(action: onCompose) {
+                    Image(systemName: "plus")
+                        .font(.system(size: 16, weight: .bold))
+                        .foregroundStyle(Palette.canvas)
+                        .frame(width: 48, height: 48)
+                        .background(Circle().fill(Palette.textPrimary))
+                }
+                .buttonStyle(.plain)
             }
-            .padding(.leading, 10)
 
             Spacer()
 
-            tabButton(.profile, icon: "person.crop.circle.fill")
+            iconButton(.profile, icon: "person.fill")
         }
-        .padding(.horizontal, 22)
-        .frame(height: Metrics.tabBarHeight)
-        .glassCapsule(interactive: true)
     }
 
-    private func tabButton(_ value: AppTab, icon: String) -> some View {
+    private func iconButton(_ value: AppTab, icon: String) -> some View {
         Button { tab = value } label: {
             Image(systemName: icon)
-                .font(.system(size: 20, weight: .semibold))
-                .foregroundStyle(tab == value ? Palette.accent : Palette.textSecondary)
-                .frame(width: 44, height: 44)
+                .font(.system(size: 19, weight: .semibold))
+                .foregroundStyle(tab == value ? Palette.textPrimary : Palette.textSecondary)
+                .frame(width: 48, height: 48)
         }
         .buttonStyle(.plain)
+        .glassCircle(interactive: true)
     }
 }

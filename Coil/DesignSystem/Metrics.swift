@@ -7,6 +7,6 @@ enum Metrics {
     static let avatarMedium: CGFloat = 44
     static let avatarLarge: CGFloat = 76
     static let storyRingSize: CGFloat = 64
-    static let tabBarHeight: CGFloat = 56
+    static let tabBarHeight: CGFloat = 48
     static let screenPadding: CGFloat = 16
 }
