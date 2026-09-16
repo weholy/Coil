@@ -2,13 +2,13 @@ import SwiftUI
 
 struct FeedView: View {
     @State private var folders: [FeedFolder] = [
-        FeedFolder(id: 1, name: "Все", icon: "square.grid.2x2"),
-        FeedFolder(id: 2, name: "Группы", icon: "person.3"),
-        FeedFolder(id: 3, name: "Личное", icon: "person"),
-        FeedFolder(id: 4, name: "Работа", icon: "briefcase"),
-        FeedFolder(id: 5, name: "Публичное", icon: "globe")
+        FeedFolder(id: 1, name: "Все"),
+        FeedFolder(id: 2, name: "Группы"),
+        FeedFolder(id: 3, name: "Личное"),
+        FeedFolder(id: 4, name: "Работа"),
+        FeedFolder(id: 5, name: "Публичное")
     ]
-    @State private var selectedFolderID = FeedFolderTabsView.forYouID
+    @State private var selectedFolderID = 1
     @State private var stories: [StoryGroup] = []
     @State private var posts: [Post] = []
     @State private var unreadNotifications = 0

@@ -5,35 +5,37 @@ struct CoilTabBar: View {
     let onCompose: () -> Void
 
     var body: some View {
-        HStack(spacing: 14) {
-            iconButton(.feed, icon: "house.fill")
+        GlassEffectContainer(spacing: 14) {
+            HStack(spacing: 14) {
+                iconButton(.feed, icon: "house.fill")
 
-            Spacer()
+                Spacer()
 
-            HStack(spacing: 8) {
-                Button { tab = .chats } label: {
-                    Text("Chat")
-                        .font(Typography.subheadline)
-                        .foregroundStyle(tab == .chats ? Palette.textPrimary : Palette.textSecondary)
-                        .padding(.horizontal, 18)
-                        .frame(height: 48)
+                HStack(spacing: 8) {
+                    Button { tab = .chats } label: {
+                        Text("Чаты")
+                            .font(Typography.subheadline)
+                            .foregroundStyle(Palette.textPrimary)
+                            .padding(.horizontal, 18)
+                            .frame(height: 48)
+                    }
+                    .buttonStyle(.plain)
+                    .glassCapsule(interactive: true)
+
+                    Button(action: onCompose) {
+                        Image(systemName: "plus")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundStyle(Palette.textPrimary)
+                            .frame(width: 48, height: 48)
+                    }
+                    .buttonStyle(.plain)
+                    .glassCircle(interactive: true)
                 }
-                .buttonStyle(.plain)
-                .glassCapsule(interactive: true)
 
-                Button(action: onCompose) {
-                    Image(systemName: "plus")
-                        .font(.system(size: 16, weight: .bold))
-                        .foregroundStyle(Palette.canvas)
-                        .frame(width: 48, height: 48)
-                        .background(Circle().fill(Palette.textPrimary))
-                }
-                .buttonStyle(.plain)
+                Spacer()
+
+                iconButton(.profile, icon: "person.fill")
             }
-
-            Spacer()
-
-            iconButton(.profile, icon: "person.fill")
         }
     }
 

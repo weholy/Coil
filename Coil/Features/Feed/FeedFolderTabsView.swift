@@ -5,53 +5,31 @@ struct FeedFolderTabsView: View {
     @Binding var selectedFolderID: Int
     var onAddFolder: () -> Void = {}
 
-    static let forYouID = 0
-
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                pill(id: Self.forYouID, name: "Для вас", icon: "sparkles")
-
+            HStack(spacing: 22) {
                 ForEach(folders) { folder in
-                    pill(id: folder.id, name: folder.name, icon: folder.icon)
+                    let isSelected = selectedFolderID == folder.id
+                    Button {
+                        selectedFolderID = folder.id
+                    } label: {
+                        Text(folder.name)
+                            .font(isSelected ? Typography.headline : Typography.subheadline)
+                            .foregroundStyle(isSelected ? Palette.textPrimary : Palette.textSecondary)
+                    }
+                    .buttonStyle(.plain)
                 }
 
                 Button(action: onAddFolder) {
                     Image(systemName: "plus")
-                        .font(.system(size: 13, weight: .semibold))
+                        .font(.system(size: 12, weight: .semibold))
                         .foregroundStyle(Palette.textSecondary)
-                        .frame(width: 32, height: 32)
+                        .frame(width: 28, height: 28)
                         .glassCircle()
                 }
                 .buttonStyle(.plain)
             }
             .padding(.horizontal, Metrics.screenPadding)
         }
-    }
-
-    private func pill(id: Int, name: String, icon: String) -> some View {
-        let isSelected = selectedFolderID == id
-        return Button {
-            selectedFolderID = id
-        } label: {
-            HStack(spacing: 6) {
-                Image(systemName: icon)
-                    .font(.system(size: 12, weight: .semibold))
-                Text(name)
-                    .font(Typography.subheadline)
-            }
-            .foregroundStyle(isSelected ? Color.white : Palette.textPrimary)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 8)
-            .background {
-                Capsule().fill(isSelected ? Palette.accent : Palette.surface)
-            }
-            .overlay {
-                if !isSelected {
-                    Capsule().stroke(Palette.hairline, lineWidth: 1)
-                }
-            }
-        }
-        .buttonStyle(.plain)
     }
 }
