@@ -17,7 +17,10 @@ struct ChatsListView: View {
                     ScrollView {
                         LazyVStack(spacing: 2) {
                             ForEach(chats) { chat in
-                                ChatRowView(chat: chat)
+                                NavigationLink(value: chat.participant) {
+                                    ChatRowView(chat: chat)
+                                }
+                                .buttonStyle(.plain)
                             }
                         }
                     }
@@ -26,6 +29,9 @@ struct ChatsListView: View {
             }
             .background(Palette.canvas)
             .navigationTitle("Сообщения")
+            .navigationDestination(for: User.self) { participant in
+                ChatDetailView(participant: participant)
+            }
         }
     }
 }
