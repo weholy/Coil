@@ -47,7 +47,7 @@ struct ProfileView: View {
                                         .padding(.bottom, 8)
                                         .overlay(alignment: .bottom) {
                                             if selectedTab == index {
-                                                Rectangle().fill(Palette.accent).frame(height: 2)
+                                                Rectangle().fill(Palette.textPrimary).frame(height: 2)
                                             }
                                         }
                                 }
@@ -66,6 +66,16 @@ struct ProfileView: View {
                 }
             }
             .background(Palette.canvas)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink {
+                        SettingsView()
+                    } label: {
+                        Image(systemName: "gearshape")
+                            .foregroundStyle(Palette.textPrimary)
+                    }
+                }
+            }
         }
     }
 
