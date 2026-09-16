@@ -3,7 +3,7 @@ import SwiftUI
 struct PostCardView: View {
     let post: Post
     var onLikeToggle: () -> Void = {}
-    var onCommentTap: () -> Void = {}
+    var onOpen: () -> Void = {}
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -34,7 +34,7 @@ struct PostCardView: View {
             }
 
             HStack(spacing: 10) {
-                Button(action: onCommentTap) {
+                Button(action: onOpen) {
                     HStack(spacing: 8) {
                         Image(systemName: "bubble.left")
                             .font(.system(size: 13, weight: .medium))
@@ -75,5 +75,7 @@ struct PostCardView: View {
             RoundedRectangle(cornerRadius: Metrics.cardCornerRadius, style: .continuous)
                 .stroke(Palette.hairline, lineWidth: 1)
         }
+        .contentShape(RoundedRectangle(cornerRadius: Metrics.cardCornerRadius, style: .continuous))
+        .onTapGesture(perform: onOpen)
     }
 }
